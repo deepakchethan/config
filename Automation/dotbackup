@@ -103,10 +103,10 @@ then
    echo "Copied your blocks for i3"
 fi
 
-if [[ -d ~/.emacs.d/  &&  -f ~/.emacs ]]
+if [[ -f ~/.emacs.d/init.el  &&  -f ~/.emacs ]]
 then
     mkdir -p ~/Git/Config/Emacs
-    sudo cp -fr ~/.emacs.d/ ~/Git/Config/Emacs/
+    sudo cp -fr ~/.emacs.d/init.el ~/Git/Config/Emacs/
     cp ~/.emacs ~/Git/Config/Emacs/
     echo "Copied emacs config files"
 fi

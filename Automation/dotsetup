@@ -36,7 +36,7 @@ echo "Copied the blocks"
 sudo cp ~/Git/Config/Synaptics /etc/X11/xorg.conf.d
 echo "Copied the synaptics file"
 
-sudo cp -r ~/Git/Config/Emacs/.emacs.d/ ~/
+sudo cp -r ~/Git/Config/Emacs/init.el ~/.emacs.d
 sudo cp ~/Git/Config/Emacs/.emacs  ~/
 echo "Copied the emacs config files"
 
