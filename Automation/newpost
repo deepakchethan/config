@@ -1,0 +1,17 @@
+#!/bin/bash
+DATE=$(date +%F)
+TIME=$(date +%H:%M:%S)
+if [ "$1" != "" ]; then
+#Write the base
+cat > ~/Git/deepakchethan.github.io/_posts/$DATE-$1.markdown << EOF
+---
+layout: post
+title: $1
+date: $DATE $TIME +0000
+categories:
+---
+EOF
+cd ~/Git/deepakchethan.github.io/_posts/ && emacs $DATE-$1.markdown
+else
+    echo "Specify the title of the post"
+fi

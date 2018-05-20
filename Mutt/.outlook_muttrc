@@ -1,0 +1,23 @@
+ set imap_user = "deepakchethan@outlook.com"
+ set imap_pass = ""
+ set folder = imaps://imap-mail.outlook.com/
+ set spoolfile=+INBOX
+ set postponed="+[Outlook]/Drafts"
+ set smtp_url = "smtp://deepakchethan@outlook.com@smtp-mail.outlook.com:587/"
+ set smtp_pass = "Idontknowmypass"
+ set move = no
+ set from = "deepakchethan@outlook.com"
+ set realname = "Deepak Chethan"
+ set ssl_force_tls = yes
+ set ssl_starttls = yes 
+ set header_cache = ~/.mutt/cache/headers
+ set message_cachedir = ~/.mutt/cache/bodies
+ set certificate_file = ~/.mutt/certificates
+
+
+ set attribution = "* %n <%a> [%{%Y-%m-%d %H:%M:%S %Z]:\n"
+ set editor="vim"
+ set copy
+ set record=+OUTBOX
+ 
+ bind index G imap-fetch-mail

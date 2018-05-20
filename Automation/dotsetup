@@ -1,0 +1,64 @@
+#!/bin/bash
+
+#This is to move all the folders . files cloned from github
+
+#copy the .rcs
+
+cp ~/Git/Config/Vimrc/.vimrc ~/
+echo "Copied .vimrc file"
+
+cp ~/Git/Config/Bashrc/.bashrc ~/
+cp ~/Git/Config/Bashrc/.bash_profile ~/
+echo "Copied bash files"
+
+#cp -r ~/Git/Config/fish/* ~/.config/fish/
+#echo "Copied the fish config files" 
+
+mkdir -p ~/.config/i3/
+cp ~/Git/Config/i3/* ~/.config/i3/
+echo "Copied i3 config and blocks.conf  file"
+
+cp ~/Git/Config/Xresources/.Xresources ~/
+echo "Copied .Xresources file"
+
+cp ~/Git/Config/Tmux/.tmux.conf ~/
+echo "Copied tmux.conf file"
+
+cp -r ~/Git/Config/Tmuxinator/.tmuxinator ~/
+echo "Copied the tmuxinator sessions"
+
+cp -r ~/Git/Config/Irssi/.irssi ~/
+echo "Copied the Irssi config files"
+
+sudo cp -r ~/Git/Config/i3blocks /usr/lib/
+echo "Copied the blocks"
+
+sudo cp ~/Git/Config/Synaptics /etc/X11/xorg.conf.d
+echo "Copied the synaptics file"
+
+sudo cp -r ~/Git/Config/Emacs/.emacs.d/ ~/
+sudo cp ~/Git/Config/Emacs/.emacs  ~/
+echo "Copied the emacs config files"
+
+sudo cp ~/Git/Config/Mutt/.gmail_muttrc ~/
+sudo cp ~/Git/Config/Mutt/.outlook_muttrc ~/
+echo "Copied the Mutt files"
+
+echo "Change the password of muttrc files"
+vim ~/.gmail_muttrc
+vim ~/.outlook_muttrc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

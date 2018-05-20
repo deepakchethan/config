@@ -1,0 +1,4 @@
+#!/bin/bash
+sudo install newpost /bin/
+sudo install dotbackup /bin/
+sudo install dotsetup /bin/
