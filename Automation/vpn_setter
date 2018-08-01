@@ -1,0 +1,6 @@
+#!/bin/bash
+username="vpnbook"
+password="6xvh6qR"
+echo "UserName: $username"
+echo "password: $password"
+sudo openvpn --config /etc/vpnbook/vpnbook-fr1-tcp80.ovpn > /dev/null

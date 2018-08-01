@@ -2,3 +2,4 @@
 sudo install newpost /bin/
 sudo install dotbackup /bin/
 sudo install dotsetup /bin/
+sudo install vpn_setter /bin/

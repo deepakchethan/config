@@ -22,7 +22,7 @@
  '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
-    (sudo-edit cff chess 0xc 0blayout bison-mode dropbox org-trello org-pomodoro lorem-ipsum zoom zygospore ace-window ace-link ac-etags easy-jekyll daemons aggressive-indent arduino-mode auto-minor-mode cmake-mode commenter csharp-mode xclip web-beautify web-mode i3wm company-irony company-irony-c-headers flymake-google-cpplint iedit ac-c-headers ac-js2 irony xref-js2 nlinum ac-html ac-html-bootstrap jq-mode js2-mode js2-refactor json-mode ace-jump-mode switch-window undo-tree autopair auto-complete smex helm-swoop company find-file-in-project highlight-indentation ivy pyvenv s yasnippet elpy))))
+    (markdown-preview-mode mkdown mongo ssh wotd writegood-mode diary-manager erc-colorize erc-hl-nicks erc-image erc-status-sidebar latex-extra latex-math-preview launch sudo-edit chess 0xc 0blayout bison-mode org-trello org-pomodoro lorem-ipsum zoom zygospore ace-window ace-link ac-etags easy-jekyll aggressive-indent arduino-mode auto-minor-mode cmake-mode commenter csharp-mode xclip web-beautify web-mode i3wm company-irony company-irony-c-headers flymake-google-cpplint iedit ac-c-headers ac-js2 irony xref-js2 nlinum ac-html ac-html-bootstrap jq-mode js2-mode js2-refactor json-mode ace-jump-mode switch-window undo-tree autopair auto-complete smex helm-swoop company find-file-in-project highlight-indentation ivy pyvenv s yasnippet elpy))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -30,9 +30,11 @@
  ;; If there is more than one, they won't work right.
  )
 
-(add-to-list 'load-path "~/.emacs.d/evil")
+(setq org-agenda-files '("~/Org/"))
+      (add-to-list 'load-path "~/.emacs.d/evil")
 (require 'evil)
 (evil-mode 1)
+
 
 (require 'auto-complete)
 (require 'auto-complete-config)
@@ -48,6 +50,10 @@
 (global-aggressive-indent-mode 1)
 (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
 
+(global-launch-mode +1)
+(define-key global-map (kbd "C-x C-l") 'launch)
+(define-key global-map (kbd "C-c C-c") 'comment-line)
+
 (require 'yasnippet)
 (yas-global-mode 1)
 ;; For c header files
@@ -58,6 +64,18 @@
 (add-hook 'c++-mode-hook 'my:ac-c-header-init)
 (add-hook 'c-mode-hook 'my:ac-c-header-init)
 ;;Configuring elpy for python
+
+
+;;Helps searching for the c/cpp header files
+;; (require cff)
+;; (add-hook 'c++-mode-hook
+;; 	  '(lambda ()
+;; 	     (define-key c-mode-base-map (kbd "M-o") 'cff-find-other-file)))
+;; (add-hook 'c-mode-hook
+;; 	  '(lambda ()
+;; 	     (define-key c-mode-base-map (kbd "M-o") 'cff-find-other-file)))
+
+
 
 (elpy-enable)
 (global-undo-tree-mode)
@@ -77,8 +95,8 @@
 (setq elpy-rpc-python-command "python3")
 (setq elpy-shell-interpreter "python3")
 
-
-
+(require 'sudo-edit)
+(define-key global-map (kbd "C-c C-s") 'sudo-edit)
 
 
 
@@ -120,11 +138,50 @@
 (require 'smex)
 (global-set-key (kbd "M-i") 'helm-swoop)			; For helm-swoop
 (global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 (global-set-key (kbd "M-/") 'undo-tree-visualize)
-(global-set-key (kbd "C-M-z") 'switch-window)
+(global-set-key (kbd "C-M-o") 'other-window)
 
 
 ;;For setting up the jekyll stuff
-(setq easy-jekyll-basedir "~/Git/deepakchethan.github.io/")
-(setq easy-jekyll-url "https://deepakchethan.github.io")
+(setq easy-jekyll-basedir "~/Git/dodococo.github.io/")
+(setq easy-jekyll-url "https://dodococo.github.io")
+
+
+;; Configuration for erc
+
+;; This causes ERC to connect to the Freenode network upon hitting
+;; C-c e f.  Replace MYNICK with your IRC nick.
+(global-set-key "\C-cef" (lambda () (interactive)
+			   (erc :server "irc.freenode.net" :port "6667"
+				:nick "dodococo")))
+
+;; Make C-c RET (or C-c C-RET) send messages instead of RET.  This has
+;; been commented out to avoid confusing new users.
+;; (define-key erc-mode-map (kbd "RET") nil)
+;; (define-key erc-mode-map (kbd "C-c RET") 'erc-send-current-line)
+;; (define-key erc-mode-map (kbd "C-c C-RET") 'erc-send-current-line)
+
+(require 'erc-hl-nicks)
+
+;; Join the #emacs and #erc channels whenever connecting to Freenode.
+(setq erc-autojoin-channels-alist '(("freenode.net" "#djplug" "#hackthissite" "#networking" "#security")))
+
+;; Rename server buffers to reflect the current network name instead
+;; of SERVER:PORT (e.g., "freenode" instead of "irc.freenode.net:6667").
+;; This is useful when using a bouncer like ZNC where you have multiple
+;; connections to the same server.
+(setq erc-rename-buffers t)
+
+;; Interpret mIRC-style color commands in IRC chats
+;;(setq erc-interpret-mirc-color t)
+(setq erc-colorize-mode t)
+
+
+;; The following are commented out by default, but users of other
+;; non-Emacs IRC clients might find them useful.
+;; Kill buffers for channels after /part
+;; (setq erc-kill-buffer-on-part t)
+;; Kill buffers for private queries after quitting the server
+;; (setq erc-kill-queries-on-quit t)
+;; Kill buffers for server messages after quitting the server
+;; (setq erc-kill-server-buffer-on-quit t)

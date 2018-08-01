@@ -4,49 +4,34 @@
 
 #copy the .rcs
 
-cp ~/Git/Config/Vimrc/.vimrc ~/
-echo "Copied .vimrc file"
+PREF=$1
 
-cp ~/Git/Config/Bashrc/.bashrc ~/
-cp ~/Git/Config/Bashrc/.bash_profile ~/
-echo "Copied bash files"
+if [ -z "$PREF" ];
+then
+    echo "Need the source!"
+    exit
+fi
 
-#cp -r ~/Git/Config/fish/* ~/.config/fish/
-#echo "Copied the fish config files" 
+cp $(PREF)/Vimrc/vimrc ~/.vimrc && echo "Copied .vimrc file"
 
-mkdir -p ~/.config/i3/
-cp ~/Git/Config/i3/* ~/.config/i3/
-echo "Copied i3 config and blocks.conf  file"
+cp $(PREF)/Bashrc/bashrc ~/.bashrc && cp $(PREF)/Bashrc/bash_profile ~/.bach_profile && echo "Copied bash files"
 
-cp ~/Git/Config/Xresources/.Xresources ~/
-echo "Copied .Xresources file"
+mkdir -p ~/.config/i3/ && cp $(PREF)/i3/* ~/.config/i3/ && echo "Copied i3 config and blocks.conf  file"
 
-cp ~/Git/Config/Tmux/.tmux.conf ~/
-echo "Copied tmux.conf file"
+cp $(PREF)/Xresources/Xresources ~/.Xresources && echo "Copied .Xresources file"
 
-cp -r ~/Git/Config/Tmuxinator/.tmuxinator ~/
-echo "Copied the tmuxinator sessions"
+cp $(PREF)/Tmux/tmux.conf ~/.tmux.conf && echo "Copied tmux.conf file"
 
-cp -r ~/Git/Config/Irssi/.irssi ~/
-echo "Copied the Irssi config files"
+cp -r $(PREF)/Irssi/irssi ~/.irssi && echo "Copied the Irssi config files"
 
-sudo cp -r ~/Git/Config/i3blocks /usr/lib/
-echo "Copied the blocks"
+sudo cp -r $(PREF)/i3blocks /usr/lib/ && echo "Copied the blocks"
 
-sudo cp ~/Git/Config/Synaptics /etc/X11/xorg.conf.d
-echo "Copied the synaptics file"
+sudo cp $(PREF)/Synaptics/* /etc/X11/xorg.conf.d/ && echo "Copied the synaptics file"
 
-sudo cp -r ~/Git/Config/Emacs/init.el ~/.emacs.d
-sudo cp ~/Git/Config/Emacs/.emacs  ~/
-echo "Copied the emacs config files"
+sudo cp -r $(PREF)/Emacs/init.el ~/.emacs.d && sudo cp $(PREF)/Emacs/emacs  ~/.emacs && echo "Copied the emacs config files"
 
-sudo cp ~/Git/Config/Mutt/.gmail_muttrc ~/
-sudo cp ~/Git/Config/Mutt/.outlook_muttrc ~/
-echo "Copied the Mutt files"
+sudo cp $(PREF)/Mutt/gmail_muttrc ~/.gmail_muttrc && sudo cp $(PREF)/Mutt/outlook_muttrc ~/.outlook_muttrc && echo "Copied the Mutt files"
 
-echo "Change the password of muttrc files"
-vim ~/.gmail_muttrc
-vim ~/.outlook_muttrc
 
 
 

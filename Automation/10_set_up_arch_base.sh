@@ -8,7 +8,6 @@ then
      wifi-menu
 fi
 
-
 echo "Create or modify the partitions to install"
 echo "Do not forget to create a swap partition"
 echo "Press y to open cfdisk"

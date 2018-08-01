@@ -1,123 +1,58 @@
 #!/bin/bash
 #This was made to make sure all my .rc files are updated
-#check if the git director exists
 
-if [ -d ~/Git/Config ]
+PREF=$1
+if [ -z "$PREF" ];
 then
-    echo  "The Git/Config directory exists"
+    echo "Need the path to backup the files to"
+    exit
+fi
+
+if [ -d $(PREF) ]
+then
+    echo  "The given directory exists"
 else
     echo "Git directory doesnt exist"
     echo "Want me to make one for you ?[y/n]"
     read ans
     if [ ans =  'y' ]
     then
-	mkdir -vp ~/Git/Config
+	mkdir -vp $(PREF)
     fi
 fi
 
-#mov the contents to there respective folders
+# Vimrc
+[ -f ~/.vimrc ] && mkdir -p $(PREF)/Vimrc && cp ~/.vimrc $(PRE)/Vimrc/vimrc && echo "Copied vimrc file"
 
-if [ -f ~/.vimrc ]
-then
- mkdir -p ~/Git/Config/Vimrc
- cp ~/.vimrc ~/Git/Config/Vimrc
- echo "Copied vimrc file"
-fi
+# Bashrc
+[ -f ~/.bashrc ] && mkdir -p $(PREF)/Bashrc && cp ~/.bashrc $(PRE)/Bashrc/bashrc && cp ~/.bash_profile $(PREF)/Bashrc/.bash_profile && echo "Copied bash config files"
 
-if [ -f ~/.bashrc ]
-then
-  mkdir -p ~/Git/Config/Bashrc
-  cp ~/.bashrc ~/Git/Config/Bashrc
-  cp ~/.bash_profile ~/Git/Config/Bashrc
-  echo "Copied bash config files"
-fi
+# i3 config
+[ -f ~/.config/i3/config ] && mkdir -p $(PREF)/i3/ && cp ~/.config/i3/config $(PREF)/i3/ && echo "Copied i3 config file"
 
-if [ -f ~/.config/i3/config ]
-then
-  mkdir -p ~/Git/Config/i3/
-  cp ~/.config/i3/config ~/Git/Config/i3/
-  echo "Copied i3 config file"
-fi
+# Irssi
+[ -d ~/.irssi ] && mkdir -p $(PREF)/Irssi/ && cp -r ~/.irssi $(PREF)/Irssi/irssi && echo "Copied Irssi config files"
 
-#if [ -d ~/.config/fish ]
-#then
-#  mkdir -p ~/Git/Config/fish/
-#  cp -r ~/.config/fish/* ~/Git/Config/fish/
-#  echo "Copied Fish shell config file"
-#fi
+# Mutt Config
+[[ -f ~/.gmail_muttrc && -f ~/.outlook_muttrc ]]  &&  mkdir -p $(PREF)/Mutt/ && cp ~/.gmail_muttrc $(PREF)/Mutt/gmail_muttrc && cp ~/.outlook_muttrc $(PREF)/Mutt/outlook_muttrc && echo "Copied your Mutt files"
 
-if [ -d ~/.tmuxinator ]
-then
-  mkdir -p ~/Git/Config/Tmuxinator/
-  cp -r ~/.tmuxinator ~/Git/Config/Tmuxinator/
-  echo "Copied tmuxinator session files"
-fi
+# i3Blocks config file
+[ -f ~/.config/i3/i3blocks.conf ] && mkdir -p $(PREF)/i3/ && cp -r ~/.config/i3/i3blocks.conf $(PREF)/i3/ &&echo "Copied i3blocks config file"
 
-if [ -d ~/.irssi ]
-then
-  mkdir -p ~/Git/Config/Irssi/
-  cp -r ~/.irssi ~/Git/Config/Irssi/
-  echo "Copied Irssi config files"
-fi
+# Xresources for fonts and shit
+[ -f ~/.Xresources ] && mkdir -p $(PREF)/Xresources && cp ~/.Xresources $(PREF)/Xresources/Xresource && echo "Copied xresources file"
 
-if [[ -f ~/.gmail_muttrc && -f ~/.outlook_muttrc ]]
-then
-    mkdir -p ~/Git/Config/Mutt/
-    cp ~/.gmail_muttrc ~/Git/Config/Mutt/
-    cp ~/.outlook_muttrc ~/Git/Config/Mutt/
-    echo "Copied your Mutt files"
-fi
+# Synaptics for scrollpad tapping
+[ -f /etc/X11/xorg.conf.d/70-synaptics.conf ] && mkdir -p $(PREF)/Synaptics && cp /etc/X11/xorg.conf.d/70-synaptics.conf $(PREF)/Synaptics/ && echo "Copied the synaptics file"
 
-if [ -f ~/.config/i3/i3blocks.conf ]
-then
-  mkdir -p ~/Git/Config/i3/
-  cp -r ~/.config/i3/i3blocks.conf ~/Git/Config/i3/
-  echo "Copied i3blocks config file"
-fi
+# Tmux config file
+[ -f ~/.tmux.conf ] && mkdir -p $(PREF)/Tmux && cp ~/.tmux.conf $(PREF)/Tmux/tmux.conf && echo "Copied tmux.conf file"
 
-if [ -f ~/.Xresources ]
-then
-  mkdir -p ~/Git/Config/Xresources
-  cp ~/.Xresources ~/Git/Config/Xresources/
-  echo "Copied xresources file"
-fi
+# i3 blocks
+[ -d /usr/lib/i3blocks ] && cp -rf /usr/lib/i3blocks $(PREF)/ &&  echo "Copied your blocks for i3"
+# Emacs files
+[[ -f ~/.emacs.d/init.el  &&  -f ~/.emacs ]] && mkdir -p $(PREF)/Emacs && sudo cp -fr ~/.emacs.d/init.el $(PREF)/Emacs/ && cp ~/.emacs $(PREF)/Emacs/emacs && echo "Copied emacs config files"
 
-if [ -f /etc/X11/xorg.conf.d/70-synaptics.conf ]
-then
-   mkdir -p ~/Git/Config/Synaptics 
-   cp /etc/X11/xorg.conf.d/70-synaptics.conf ~/Git/Config/Synaptics/
-   echo "Copied the synaptics file"
-fi
-
-
-if [ -f ~/.tmux.conf ]
-then
-  mkdir -p ~/Git/Config/Tmux
-  cp ~/.tmux.conf ~/Git/Config/Tmux
-  echo "Copied tmux.conf file"
-fi
-
-if [ -d /usr/lib/i3blocks ]
-then 
-   cp -rf /usr/lib/i3blocks ~/Git/Config
-   echo "Copied your blocks for i3"
-fi
-
-if [[ -f ~/.emacs.d/init.el  &&  -f ~/.emacs ]]
-then
-    mkdir -p ~/Git/Config/Emacs
-    sudo cp -fr ~/.emacs.d/init.el ~/Git/Config/Emacs/
-    cp ~/.emacs ~/Git/Config/Emacs/
-    echo "Copied emacs config files"
-fi
-
-echo "Change the password of muttrc files"
-vim ~/Git/Config/Mutt/.gmail_muttrc
-vim ~/Git/Config/Mutt/.outlook_muttrc
-
-
-
-
-echo "Your files are preserved in ~/Git/Config folder!"
+echo "Your files are put to $(PREF) folder!"
 
 
