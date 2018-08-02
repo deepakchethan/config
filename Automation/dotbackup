@@ -2,13 +2,19 @@
 #This was made to make sure all my .rc files are updated
 
 PREF=$1
-if [ -z "$PREF" ];
+test -z $PREF && echo "Not a valid directory" &&  exit
+
+if [[ $PREF =~ [~/a-z0-9\s]+[^\/]{1}$ ]];
 then
-    echo "Need the path to backup the files to"
-    exit
+    echo "A valid path";
+else if [[ $PREF =~ [~/a-z0-9\s]+[\/]{1}$ ]];
+     then
+	 echo "Should not end with /, but whatever"
+	 PREF=${PREF:0:${#PREF}-1}
+     fi
 fi
 
-if [ -d $(PREF) ]
+if [ -d $PREF ]
 then
     echo  "The given directory exists"
 else
@@ -17,42 +23,42 @@ else
     read ans
     if [ ans =  'y' ]
     then
-	mkdir -vp $(PREF)
+	mkdir -vp $PREF
     fi
 fi
 
 # Vimrc
-[ -f ~/.vimrc ] && mkdir -p $(PREF)/Vimrc && cp ~/.vimrc $(PRE)/Vimrc/vimrc && echo "Copied vimrc file"
+[ -f ~/.vimrc ] && mkdir -p $PREF/Vimrc && cp ~/.vimrc $PREF/Vimrc/vimrc && echo "Copied vimrc file"
 
 # Bashrc
-[ -f ~/.bashrc ] && mkdir -p $(PREF)/Bashrc && cp ~/.bashrc $(PRE)/Bashrc/bashrc && cp ~/.bash_profile $(PREF)/Bashrc/.bash_profile && echo "Copied bash config files"
+[ -f ~/.bashrc ] && mkdir -p $PREF/Bashrc && cp ~/.bashrc $PREF/Bashrc/bashrc && cp ~/.bash_profile $PREF/Bashrc/bash_profile && echo "Copied bash config files"
 
 # i3 config
-[ -f ~/.config/i3/config ] && mkdir -p $(PREF)/i3/ && cp ~/.config/i3/config $(PREF)/i3/ && echo "Copied i3 config file"
+[ -f ~/.config/i3/config ] && mkdir -p $PREF/i3/ && cp ~/.config/i3/config $PREF/i3/ && echo "Copied i3 config file"
 
 # Irssi
-[ -d ~/.irssi ] && mkdir -p $(PREF)/Irssi/ && cp -r ~/.irssi $(PREF)/Irssi/irssi && echo "Copied Irssi config files"
+[ -d ~/.irssi ] && mkdir -p $PREF/Irssi/ && cp -r ~/.irssi $PREF/Irssi/ && echo "Copied Irssi config files"
 
 # Mutt Config
-[[ -f ~/.gmail_muttrc && -f ~/.outlook_muttrc ]]  &&  mkdir -p $(PREF)/Mutt/ && cp ~/.gmail_muttrc $(PREF)/Mutt/gmail_muttrc && cp ~/.outlook_muttrc $(PREF)/Mutt/outlook_muttrc && echo "Copied your Mutt files"
+[[ -f ~/.gmail_muttrc && -f ~/.outlook_muttrc ]]  &&  mkdir -p $PREF/Mutt/ && cp ~/.gmail_muttrc $PREF/Mutt/gmail_muttrc && cp ~/.outlook_muttrc $PREF/Mutt/outlook_muttrc && echo "Copied your Mutt files"
 
 # i3Blocks config file
-[ -f ~/.config/i3/i3blocks.conf ] && mkdir -p $(PREF)/i3/ && cp -r ~/.config/i3/i3blocks.conf $(PREF)/i3/ &&echo "Copied i3blocks config file"
+[ -f ~/.config/i3/i3blocks.conf ] && mkdir -p $PREF/i3/ && cp -r ~/.config/i3/i3blocks.conf $PREF/i3/ &&echo "Copied i3blocks config file"
 
 # Xresources for fonts and shit
-[ -f ~/.Xresources ] && mkdir -p $(PREF)/Xresources && cp ~/.Xresources $(PREF)/Xresources/Xresource && echo "Copied xresources file"
+[ -f ~/.Xresources ] && mkdir -p $PREF/Xresources && cp ~/.Xresources $PREF/Xresources/Xresource && echo "Copied xresources file"
 
 # Synaptics for scrollpad tapping
-[ -f /etc/X11/xorg.conf.d/70-synaptics.conf ] && mkdir -p $(PREF)/Synaptics && cp /etc/X11/xorg.conf.d/70-synaptics.conf $(PREF)/Synaptics/ && echo "Copied the synaptics file"
+[ -f /etc/X11/xorg.conf.d/70-synaptics.conf ] && mkdir -p $PREF/Synaptics && cp /etc/X11/xorg.conf.d/70-synaptics.conf $PREF/Synaptics/ && echo "Copied the synaptics file"
 
 # Tmux config file
-[ -f ~/.tmux.conf ] && mkdir -p $(PREF)/Tmux && cp ~/.tmux.conf $(PREF)/Tmux/tmux.conf && echo "Copied tmux.conf file"
+[ -f ~/.tmux.conf ] && mkdir -p $PREF/Tmux && cp ~/.tmux.conf $PREF/Tmux/tmux.conf && echo "Copied tmux.conf file"
 
 # i3 blocks
-[ -d /usr/lib/i3blocks ] && cp -rf /usr/lib/i3blocks $(PREF)/ &&  echo "Copied your blocks for i3"
+[ -d /usr/lib/i3blocks ] && sudo cp -rf /usr/lib/i3blocks $PREF/ &&  echo "Copied your blocks for i3"
 # Emacs files
-[[ -f ~/.emacs.d/init.el  &&  -f ~/.emacs ]] && mkdir -p $(PREF)/Emacs && sudo cp -fr ~/.emacs.d/init.el $(PREF)/Emacs/ && cp ~/.emacs $(PREF)/Emacs/emacs && echo "Copied emacs config files"
+[[ -f ~/.emacs.d/init.el  &&  -f ~/.emacs ]] && mkdir -p $PREF/Emacs && sudo cp -fr ~/.emacs.d/init.el $PREF/Emacs/ && cp ~/.emacs $PREF/Emacs/emacs && echo "Copied emacs config files"
 
-echo "Your files are put to $(PREF) folder!"
+echo "Your files are put to $PREF folder!"
 
 

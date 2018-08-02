@@ -167,3 +167,26 @@ let test#python#runner = 'nose'
 
 
 
+"--------------------------------------"
+"        Vim Plugins                   "  >> need vim-plug-git
+"--------------------------------------"
+
+call plug#begin('~/.vim/plugged')
+Plug 'derekwyatt/vim-scala'
+Plug 'janko-m/vim-test'
+Plug 'keith/swift.vim'
+Plug 'kien/ctrlp.vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'moll/vim-node'
+Plug 'scrooloose/syntastic'
+Plug 'simnalamburt/vim-mundo'
+Plug 'flazz/vim-colorschemes'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-fugitive'
+Plug 'vimwiki/vimwiki'
+call plug#end()
+
+
+
+
