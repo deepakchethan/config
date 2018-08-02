@@ -21,7 +21,7 @@ sudo pacman -S gtypist irssi unzip  shotwell tmux sdcv vlc
 echo "Tor install"
 sudo pacman -S tor torsocks obfsproxy
 echo "Install Drivers"
-sudo pacman -S xorg
+sudo pacman -S xorg arandr
 sudo pacman -S xf86-input-synaptics xf86-video-intel xf86-input-libinput
 echo "Install yaourt stuff"
 sudo pacman -S yaourt 
