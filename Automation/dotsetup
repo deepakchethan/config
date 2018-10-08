@@ -4,7 +4,7 @@
 
 #copy the .rcs
 
-tstcp(){
+test_copy(){
     [ -f $1 ] && sudo cp -r $1 $2
 }
 
@@ -13,37 +13,37 @@ PREF=$1
 test -z $PREF && echo "Need the source!" && exit
 test -d $PREF || exit
 
-if [[ $PREF =~ [~/a-z0-9\s]+[^\/]{1}$ ]];
-then
-    echo "A valid path";
-else if [[ $PREF =~ [~/a-z0-9\s]+[\/]{1}$ ]];
-     then
-	 echo "Should not end with /, but whatever"
-	 PREF=${PREF:0:${#PREF}-1}
-     fi
-else
-    echo "Not a valid path dude!"
-fi
 
-tstcp $PREF/Vimrc/vimrc ~/.vimrc && echo "Copied .vimrc file"
+#if [[ $PREF =~ [~/a-z0-9\s]+[^\/]{1}$ ]];
+#then
+#	echo "A valid path";
+#elif [[ $PREF =~ [~/a-z0-9\s]+[\/]{1}$ ]];
+#     then
+#	 echo "Should not end with /, but whatever"
+#	 PREF=${PREF:0:${#PREF}1}
+#else
+#    echo "Not a valid path dude!"
+#fi
 
-tstcp $PREF/Bashrc/bashrc ~/.bashrc && tstcp $PREF/Bashrc/bash_profile ~/.bach_profile && echo "Copied bash files"
+test_copy $PREF/Vimrc/vimrc ~/.vimrc && echo "Copied .vimrc file"
 
-mkdir -p ~/.config/i3/ && tstcp $PREF/i3/* ~/.config/i3/ && echo "Copied i3 config and blocks.conf  file"
+test_copy $PREF/Bashrc/bashrc ~/.bashrc && test_copy $PREF/Bashrc/bash_profile ~/.bach_profile && echo "Copied bash files"
 
-tstcp $PREF/Xresources/Xresources ~/.Xresources && echo "Copied .Xresources file"
+mkdir -p ~/.config/i3/ && test_copy $PREF/i3/* ~/.config/i3/ && echo "Copied i3 config and blocks.conf  file"
 
-tstcp $PREF/Tmux/tmux.conf ~/.tmux.conf && echo "Copied tmux.conf file"
+test_copy $PREF/Xresources/Xresources ~/.Xresources && echo "Copied .Xresources file"
 
-tstcp $PREF/Irssi/irssi ~/.irssi && echo "Copied the Irssi config files"
+test_copy $PREF/Tmux/tmux.conf ~/.tmux.conf && echo "Copied tmux.conf file"
 
-tstcp $PREF/i3blocks /usr/lib/ && echo "Copied the blocks"
+test_copy $PREF/Irssi/irssi ~/.irssi && echo "Copied the Irssi config files"
 
-tstcp $PREF/Synaptics/* /etc/X11/xorg.conf.d/ && echo "Copied the synaptics file"
+test_copy $PREF/i3blocks /usr/lib/ && echo "Copied the blocks"
 
-tstcp $PREF/Emacs/init.el ~/.emacs.d && sudo cp $PREF/Emacs/emacs  ~/.emacs && echo "Copied the emacs config files"
+test_copy $PREF/Synaptics/* /etc/X11/xorg.conf.d/ && echo "Copied the synaptics file"
 
-tstcp $PREF/Mutt/gmail_muttrc ~/.gmail_muttrc && sudo cp $PREF/Mutt/outlook_muttrc ~/.outlook_muttrc && echo "Copied the Mutt files"
+test_copy $PREF/Emacs/init.el ~/.emacs.d && sudo cp $PREF/Emacs/emacs  ~/.emacs && echo "Copied the emacs config files"
+
+test_copy $PREF/Mutt/gmail_muttrc ~/.gmail_muttrc && sudo cp $PREF/Mutt/outlook_muttrc ~/.outlook_muttrc && echo "Copied the Mutt files"
 
 
 
