@@ -1,2 +1,2 @@
 # config
-Collection of my dot files
+Collection of config dot files of my arch linux. 
